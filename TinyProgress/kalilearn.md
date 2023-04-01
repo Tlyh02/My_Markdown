@@ -22,9 +22,12 @@
 >systemctl enable shadowsocks-libev
 >#查看 Shadowsocks 服务的全部日志
 >journalctl -u shadowsocks-libev
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU2MTIzNTAzNSwxMTI4OTQ4NTkwLC0xNz
-M3NTcyMjQ4LC0xMDE4NDYwMDUyLC01MjEwNTI3ODYsLTE0Mjg3
-MzE0OTldfQ==
--->
+---
+> #环境变量：主机名
+> echo "$HOSTNAME"
+---
+> #添加目录
+> makdir
+> #创建文件
+> touch *.*
+> touch 1*.*  2*.*  ...
