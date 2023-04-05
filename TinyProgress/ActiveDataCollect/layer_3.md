@@ -71,3 +71,35 @@ Netdiscover搜索局域网中的IP地址，检查在线主机或发送的ARP请�
 增强版ping
 
 `fping -g 192.168.*.*/16`
+
+---
+
+## scapy-数据包定制程序
+
+- 定制ARP包扫描
+  - 显示基础ARP包配置`ARP().display()`
+![002](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_144959_1680418199190.png)
+  - 定义一个向网关发送的ARP数据包  
+  - 函数`sr1`包含了发送数据包和接受数据包的功能`sr1(ARP(pdst="<gateway>"),timeout=100) #向网关发送一个ARP数据包`
+![003](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_151520_1680419720125.png)
+
+- 定制PING包
+  -  IP/ICMP包
+  -  `IP().display() #看IP默认数据包格式`
+![004](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_152605_1680420364985.png)
+  - `ICMP().display() #看ICMP默认数据包格式`![005](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_153415_1680420855013.png)
+  - 使用上面两个函数生成ping包![006](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_154013_1680421212969.png)
+  - `sr1(IP(dst="<gateway>")/ICMP(),timeout=100)`![007](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_154407_1680421447286.png)
+
+- 定制TCP/SYN包
+  - TCP三次握手![008](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_160143_1680422503809.png)
+  - `TCP().display() #查看默认TCP包配置`![009](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_161025_1680423025303.png)
+	> 标志位* :
+  	> - 紧急标志URG，
+	> - 有意义的应答标志 ACK，
+	>- 推PSH，
+	>- 重置链接标志RST，
+	>- 同步序列号标志SYN，
+	>- 完成发送标志FIN
+  - `sr1(IP(dst="<target>")/TCP(flags="S",dport=80),timeout=1) #发送SYN包给目标`![010](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_163750_1680424669910.png)*flags=SA才成功建立半链接*
+  - 僵尸扫描目标80端口![011](https://cdn.statically.io/gh/Tlyh02/TL-s-pictualstorge@main/img/202342_170111_1680426071231.png)
