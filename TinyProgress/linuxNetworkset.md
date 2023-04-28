@@ -30,3 +30,30 @@ py:根据宿主机配置确定网络网关
 > address <网段+你选的1-255，不要和别人重复>
 > netmask <根据你的网关，一般255.255.255.0>
 > gateway  *gateway
+
+改国内镜像源
+>vi /etc/apt/sources.list
+
+- 删除原先内容，添加下列内容：
+
+>deb https://mirrors.ustc.edu.cn/debian/ bullseye main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ bullseye main contrib non-free
+deb https://mirrors.ustc.edu.cn/debian/ bullseye-updates main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ bullseye-updates main contrib non-free
+deb https://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian/ bullseye-backports main contrib non-free
+deb https://mirrors.ustc.edu.cn/debian-security/ bullseye-security main contrib non-free
+deb-src https://mirrors.ustc.edu.cn/debian-security/ bullseye-security main contrib non-free
+
+- 完成后运行：
+>apt-get update
+apt-get upgrade
+
+SSH配置
+
+>vi /etc/ssh/sshd_config
+取消PermitRootLogin行注释，并将值改为yes
+取消PasswordAuthentication yes行注释
+开启ssh服务并设置开机自启
+/etc/init.d/ssh start
+update-rc.d ssh enable
